@@ -1,1 +1,667 @@
-# Geradordeassinaturas5014
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Gerador de Assinaturas Sicoob Unicidades</title>
+
+  <!-- Bootstrap + Google Font -->
+  <link
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    rel="stylesheet"/>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"/>
+
+  <style>
+    :root {
+      --sicoob-primary: #00AE9D;
+      --sicoob-dark: #003641;
+      --sicoob-white: #FFFFFF;
+      --sicoob-accent: #C9D200;
+      --sicoob-green: #7DB61C;
+      --sicoob-purple: #49479D;
+      --sicoob-light-teal: #E6F7F6;
+      --sicoob-light-gray: #F8F9FA;
+      --sicoob-border: #E2E8F0;
+      --sicoob-text: #334155;
+      --sicoob-text-light: #64748B;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, var(--sicoob-light-teal) 0%, var(--sicoob-white) 50%, #F1F5F9 100%);
+      font-family: 'Inter', sans-serif;
+      margin: 0; 
+      padding: 0;
+      min-height: 100vh;
+      color: var(--sicoob-text);
+      font-weight: 400;
+    }
+
+    .main-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .header-section {
+      background: var(--sicoob-white);
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0, 174, 157, 0.1);
+      padding: 40px;
+      margin-bottom: 40px;
+      text-align: center;
+      border: 1px solid var(--sicoob-border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--sicoob-primary) 0%, var(--sicoob-accent) 50%, var(--sicoob-green) 100%);
+    }
+
+    .header-logo img {
+      max-height: 80px;
+      margin-bottom: 20px;
+    }
+
+    .header-title {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--sicoob-dark);
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+    }
+
+    .header-subtitle {
+      font-size: 18px;
+      color: var(--sicoob-text-light);
+      font-weight: 400;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .form-section {
+      background: var(--sicoob-white);
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0, 174, 157, 0.1);
+      padding: 50px;
+      margin-bottom: 40px;
+      border: 1px solid var(--sicoob-border);
+      position: relative;
+    }
+
+    .section-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--sicoob-dark);
+      margin-bottom: 35px;
+      padding-bottom: 15px;
+      border-bottom: 3px solid var(--sicoob-primary);
+      position: relative;
+      letter-spacing: -0.3px;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background: var(--sicoob-accent);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      font-weight: 600;
+      color: var(--sicoob-dark);
+      margin-bottom: 10px;
+      display: block;
+      font-size: 15px;
+      letter-spacing: -0.1px;
+    }
+
+    .form-control {
+      border: 2px solid var(--sicoob-border);
+      border-radius: 12px;
+      padding: 16px 20px;
+      font-size: 15px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      background: var(--sicoob-white);
+      color: var(--sicoob-text);
+      font-weight: 400;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-control:focus {
+      border-color: var(--sicoob-primary);
+      box-shadow: 0 0 0 4px rgba(0, 174, 157, 0.1);
+      outline: none;
+      transform: translateY(-1px);
+    }
+
+    .form-control::placeholder {
+      color: var(--sicoob-text-light);
+      font-weight: 400;
+    }
+
+    .required-field::after {
+      content: '*';
+      color: var(--sicoob-accent);
+      margin-left: 6px;
+      font-weight: 700;
+    }
+
+    .btn-group-actions {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 16px 40px;
+      font-weight: 600;
+      border-radius: 12px;
+      font-size: 15px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border: none;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .btn:hover::before {
+      left: 100%;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--sicoob-primary) 0%, var(--sicoob-green) 100%);
+      color: var(--sicoob-white);
+      box-shadow: 0 4px 15px rgba(0, 174, 157, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0, 174, 157, 0.4);
+    }
+
+    .btn-secondary {
+      background: linear-gradient(135deg, var(--sicoob-text-light) 0%, #475569 100%);
+      color: var(--sicoob-white);
+      box-shadow: 0 4px 15px rgba(100, 116, 139, 0.3);
+    }
+
+    .btn-secondary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(100, 116, 139, 0.4);
+    }
+
+    .signature-wrapper {
+      background: var(--sicoob-white);
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0, 174, 157, 0.1);
+      padding: 35px;
+      margin-bottom: 25px;
+      position: relative;
+      border: 1px solid var(--sicoob-border);
+      transition: all 0.3s ease;
+    }
+
+    .signature-wrapper:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(0, 174, 157, 0.15);
+    }
+
+    .signature-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid var(--sicoob-light-teal);
+    }
+
+    .signature-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--sicoob-dark);
+      letter-spacing: -0.2px;
+    }
+
+    .btn-copy {
+      background: linear-gradient(135deg, var(--sicoob-accent) 0%, var(--sicoob-green) 100%);
+      color: var(--sicoob-white);
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      box-shadow: 0 2px 8px rgba(125, 182, 28, 0.3);
+    }
+
+    .btn-copy:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(125, 182, 28, 0.4);
+    }
+
+    .preview-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    .preview-table td {
+      vertical-align: top;
+      padding: 0;
+    }
+
+    .preview-table .text-cell {
+      padding-right: 20px;
+      font-size: 14px;
+      color: #333;
+      line-height: 1.5;
+    }
+
+    .preview-table img {
+      display: block;
+      border: 0;
+    }
+
+    .loading {
+      display: none;
+      text-align: center;
+      padding: 20px;
+      color: var(--sicoob-gray);
+    }
+
+    .success-message {
+      background: linear-gradient(135deg, var(--sicoob-light-teal) 0%, #F0FDF4 100%);
+      color: var(--sicoob-dark);
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 25px;
+      border: 2px solid var(--sicoob-primary);
+      text-align: center;
+      font-weight: 600;
+      font-size: 16px;
+      box-shadow: 0 4px 15px rgba(0, 174, 157, 0.1);
+    }
+
+    .form-row {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .form-row .form-group {
+      flex: 1;
+      margin-bottom: 0;
+    }
+
+    .form-row .form-group.col-small {
+      flex: 0.5;
+    }
+
+    .form-row .form-group.col-large {
+      flex: 2;
+    }
+
+    @media (max-width: 768px) {
+      .form-row {
+        flex-direction: column;
+        gap: 0;
+      }
+      
+      .form-row .form-group {
+        margin-bottom: 20px;
+      }
+      
+      .btn-group-actions {
+        flex-direction: column;
+      }
+      
+      .btn {
+        width: 100%;
+      }
+      
+      .signature-header {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="main-container">
+    <!-- CABEÇALHO -->
+    <div class="header-section">
+      <div class="header-logo">
+        <img src="https://iili.io/FG82yRs.png" alt="Sicoob Unicidades">
+      </div>
+      <h1 class="header-title">Gerador de Assinaturas</h1>
+      <p class="header-subtitle">Sicoob Unicidades - Crie sua assinatura profissional</p>
+    </div>
+
+    <!-- FORMULÁRIO -->
+    <div class="form-section">
+      <h2 class="section-title">Informações Pessoais e Profissionais</h2>
+      
+      <form id="formAss">
+        <div class="form-row">
+          <div class="form-group col-large">
+            <label for="nome" class="required-field">Nome Completo</label>
+            <input type="text" id="nome" class="form-control" required placeholder="Digite seu nome completo"/>
+          </div>
+          <div class="form-group">
+            <label for="setor" class="required-field">Setor</label>
+            <input type="text" id="setor" class="form-control" required placeholder="Ex: Atendimento"/>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="funcao" class="required-field">Função</label>
+            <input type="text" id="funcao" class="form-control" required placeholder="Ex: Gerente"/>
+          </div>
+          <div class="form-group">
+            <label for="area" class="required-field">Área</label>
+            <input type="text" id="area" class="form-control" required placeholder="Ex: Comercial"/>
+          </div>
+          <div class="form-group col-small">
+            <label for="cooperativa" class="required-field">Cooperativa</label>
+            <select id="cooperativa" class="form-control" required>
+              <option value="">Selecione...</option>
+              <option value="5014">5014</option>
+            </select>
+          </div>
+          <div class="form-group col-small">
+            <label for="pa">PA</label>
+            <input type="text" id="pa" class="form-control" placeholder="Opcional"/>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="telefone" class="required-field">Telefone</label>
+            <input type="text" id="telefone" class="form-control" required placeholder="(00) 0000-0000"/>
+          </div>
+          <div class="form-group">
+            <label for="ramal" class="required-field">Ramal</label>
+            <input type="text" id="ramal" class="form-control" required placeholder="0000"/>
+          </div>
+          <div class="form-group col-large">
+            <label for="email" class="required-field">E-mail</label>
+            <input type="email" id="email" class="form-control" required placeholder="nome@sicoob.com.br"/>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-large">
+            <label for="logradouro" class="required-field">Logradouro</label>
+            <input type="text" id="logradouro" class="form-control" required placeholder="Rua, Avenida, etc."/>
+          </div>
+          <div class="form-group col-small">
+            <label for="numero" class="required-field">Número</label>
+            <input type="text" id="numero" class="form-control" required placeholder="123"/>
+          </div>
+          <div class="form-group">
+            <label for="bairro" class="required-field">Bairro</label>
+            <input type="text" id="bairro" class="form-control" required placeholder="Centro"/>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="cidade" class="required-field">Cidade</label>
+            <input type="text" id="cidade" class="form-control" required placeholder="Cidade"/>
+          </div>
+          <div class="form-group col-small">
+            <label for="uf" class="required-field">UF</label>
+            <input type="text" id="uf" class="form-control" required placeholder="SP" maxlength="2"/>
+          </div>
+        </div>
+
+        <div class="btn-group-actions">
+          <button type="button" class="btn btn-secondary" id="btnLimpar">
+            Limpar Formulário
+          </button>
+          <button type="button" class="btn btn-primary" id="btnGerar">
+            Gerar Assinaturas
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- LOADING -->
+    <div class="loading" id="loading">
+      <p>Gerando assinaturas...</p>
+    </div>
+
+    <!-- RESULTADOS -->
+    <div id="resultados"></div>
+  </div>
+
+  <script>
+    const bannerURL = 'https://unisicoob.com.br/assinatura/imagem/2015.png';
+    const selos = [
+      { url: 'https://unisicoob.com.br/assinatura/imagem/cpa10.jpg', name: 'CPA-10' },
+      { url: 'https://unisicoob.com.br/assinatura/imagem/cpa20.jpg', name: 'CPA-20' },
+      { url: 'https://unisicoob.com.br/assinatura/imagem/cea.jpg', name: 'CEA' }
+    ];
+
+    document.getElementById('btnLimpar').onclick = () => {
+      document.getElementById('formAss').reset();
+      document.getElementById('resultados').innerHTML = '';
+    };
+
+    document.getElementById('btnGerar').onclick = () => {
+      const loading = document.getElementById('loading');
+      loading.style.display = 'block';
+      
+      setTimeout(() => {
+        const ids = [
+          'nome','setor','funcao','area','cooperativa',
+          'telefone','ramal','email','logradouro',
+          'numero','bairro','cidade','uf'
+        ];
+        const d = {};
+        
+        for (let id of ids) {
+          d[id] = document.getElementById(id).value.trim();
+          if (!d[id]) {
+            loading.style.display = 'none';
+            alert(`Por favor, preencha o campo "${document.querySelector(`label[for="${id}"]`).textContent.replace('*', '')}"`);
+            document.getElementById(id).focus();
+            return;
+          }
+        }
+        d.pa = document.getElementById('pa').value.trim();
+
+        const out = document.getElementById('resultados');
+        out.innerHTML = '';
+
+        // Mensagem de sucesso
+        const successMsg = document.createElement('div');
+        successMsg.className = 'success-message';
+        successMsg.innerHTML = '✓ Assinaturas geradas com sucesso! Clique em "Copiar" para usar em seus e-mails.';
+        out.appendChild(successMsg);
+
+        // Gera as assinaturas com selo
+        selos.forEach((selo, index) => {
+          const wrap = document.createElement('div');
+          wrap.className = 'signature-wrapper';
+
+          const header = document.createElement('div');
+          header.className = 'signature-header';
+          header.innerHTML = `
+            <div class="signature-title">Assinatura com Selo ${selo.name}</div>
+            <button type="button" class="btn-copy" onclick="copySignature(this)">Copiar</button>
+          `;
+
+          const html = `
+<table border="0" cellpadding="0" cellspacing="0"
+  style="font-family:'Segoe UI',Arial,sans-serif;
+         font-size:13px;
+         color:#334155;
+         line-height:1.5;
+         width:auto;">
+  <tr>
+    <td style="padding-bottom:10px;">
+      <strong style="color:#003641;font-size:15px;">${d.nome}</strong><br>
+      <span style="color:#00AE9D;font-weight:600;">${d.funcao} – ${d.area}</span><br>
+      <span style="color:#64748B;">Setor: ${d.setor} | Coop: ${d.cooperativa}${d.pa?' • PA:'+d.pa:''}</span><br>
+      <a href="mailto:${d.email}" style="color:#00AE9D;text-decoration:none;font-weight:500;">${d.email}</a><br>
+      <span style="color:#64748B;">Tel: ${d.telefone} • Ramal: ${d.ramal}</span><br>
+      <span style="color:#64748B;">${d.logradouro}, ${d.numero} – ${d.bairro}</span><br>
+      <span style="color:#64748B;">${d.cidade}/${d.uf}</span>
+    </td>
+  </tr>
+  <tr>
+    <td style="padding-top:15px;">
+      <img src="${bannerURL}" style="display:block;border:0;max-width:500px;">
+    </td>
+    <td style="padding-top:15px;vertical-align:bottom;padding-left:20px;">
+      <img src="${selo.url}" style="display:block;border:0;max-width:65px;">
+    </td>
+  </tr>
+</table>`;
+
+          const preview = document.createElement('div');
+          preview.innerHTML = html;
+          preview.querySelector('table').className = 'preview-table';
+
+          wrap.appendChild(header);
+          wrap.appendChild(preview);
+          out.appendChild(wrap);
+        });
+
+        // Gera a assinatura sem selo
+        const wrapNoSeal = document.createElement('div');
+        wrapNoSeal.className = 'signature-wrapper';
+
+        const headerNoSeal = document.createElement('div');
+        headerNoSeal.className = 'signature-header';
+        headerNoSeal.innerHTML = `
+          <div class="signature-title">Assinatura Padrão (sem selo)</div>
+          <button type="button" class="btn-copy" onclick="copySignature(this)">Copiar</button>
+        `;
+
+        const htmlNoSeal = `
+<table border="0" cellpadding="0" cellspacing="0"
+  style="font-family:'Segoe UI',Arial,sans-serif;
+         font-size:13px;
+         color:#334155;
+         line-height:1.5;
+         width:auto;">
+  <tr>
+    <td style="padding-bottom:10px;">
+      <strong style="color:#003641;font-size:15px;">${d.nome}</strong><br>
+      <span style="color:#00AE9D;font-weight:600;">${d.funcao} – ${d.area}</span><br>
+      <span style="color:#64748B;">Setor: ${d.setor} | Coop: ${d.cooperativa}${d.pa?' • PA:'+d.pa:''}</span><br>
+      <a href="mailto:${d.email}" style="color:#00AE9D;text-decoration:none;font-weight:500;">${d.email}</a><br>
+      <span style="color:#64748B;">Tel: ${d.telefone} • Ramal: ${d.ramal}</span><br>
+      <span style="color:#64748B;">${d.logradouro}, ${d.numero} – ${d.bairro}</span><br>
+      <span style="color:#64748B;">${d.cidade}/${d.uf}</span>
+    </td>
+  </tr>
+  <tr>
+    <td style="padding-top:15px;">
+      <img src="${bannerURL}" style="display:block;border:0;max-width:500px;">
+    </td>
+  </tr>
+</table>`;
+
+        const previewNoSeal = document.createElement('div');
+        previewNoSeal.innerHTML = htmlNoSeal;
+        previewNoSeal.querySelector('table').className = 'preview-table';
+
+        wrapNoSeal.appendChild(headerNoSeal);
+        wrapNoSeal.appendChild(previewNoSeal);
+        out.appendChild(wrapNoSeal);
+
+        loading.style.display = 'none';
+      }, 500);
+    };
+
+    function copySignature(btn) {
+      const wrapper = btn.closest('.signature-wrapper');
+      const table = wrapper.querySelector('table');
+      
+      const range = document.createRange();
+      range.selectNode(table);
+      const selection = window.getSelection();
+      selection.removeAllRanges();
+      selection.addRange(range);
+      
+      try {
+        document.execCommand('copy');
+        selection.removeAllRanges();
+        
+        // Feedback visual
+        const originalText = btn.textContent;
+        btn.textContent = '✓ Copiado!';
+        btn.style.background = 'linear-gradient(135deg, #7DB61C 0%, #49479D 100%)';
+        
+        setTimeout(() => {
+          btn.textContent = originalText;
+          btn.style.background = '';
+        }, 2500);
+        
+      } catch (err) {
+        alert('Erro ao copiar. Tente selecionar manualmente.');
+      }
+    }
+
+    // Formatação automática de UF
+    document.getElementById('uf').addEventListener('input', function(e) {
+      this.value = this.value.toUpperCase();
+    });
+
+    // Formatação automática de telefone
+    document.getElementById('telefone').addEventListener('input', function(e) {
+      let value = this.value.replace(/\D/g, '');
+      if (value.length <= 10) {
+        value = value.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
+      } else {
+        value = value.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+      }
+      this.value = value;
+    });
+  </script>
+</body>
+</html>
